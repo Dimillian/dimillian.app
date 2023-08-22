@@ -44,8 +44,6 @@ extension View {
 public class RouterPath: ObservableObject {
   @Published public var path: [RouterDestination] = []
 
-  public init() {}
-
   public func navigate(to: RouterDestination) {
     path.append(to)
   }
@@ -54,8 +52,6 @@ public class RouterPath: ObservableObject {
 
 struct NotificationsTab: View {
   @StateObject private var routerPath = RouterPath()
-
-  let lockedType: Models.Notification.NotificationType?
 
   var body: some View {
     NavigationStack(path: $routerPath.path) {
