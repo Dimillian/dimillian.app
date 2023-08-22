@@ -4,7 +4,7 @@ export default function Document() {
   const meta = {
     title: 'Thomas Ricouard (Dimillian)',
     description: 'My portfolio',
-    image: 'https://assets.vercel.com/image/upload/q_auto/front/vercel/dps.png'
+    image: 'https://pbs.twimg.com/profile_images/1225072656829046784/wohiuIq-_400x400.jpg'
   }
 
   return (
