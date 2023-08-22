@@ -4,7 +4,7 @@ export default function Document() {
   const meta = {
     title: 'Thomas Ricouard (Dimillian)',
     description: 'My portfolio',
-    image: 'https://pbs.twimg.com/profile_images/1225072656829046784/wohiuIq-_400x400.jpg'
+    image: 'https://www.dimillian.app/images/snapshot.png'
   }
 
   return (
