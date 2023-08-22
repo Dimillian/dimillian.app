@@ -1,0 +1,68 @@
+---
+type: page
+title: Snippets
+date: 2023-08-22
+---
+
+## Access AppDelegate from SwiftUI App
+
+```swift copy showLineNumbers
+@main
+struct IceCubesApp: App {
+  @UIApplicationDelegateAdaptor private var appDelegate: AppDelegatern </button>
+}
+
+class AppDelegate: NSObject, UIApplicationDelegate {
+  func application(_: UIApplication,
+                   didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool
+  {
+    print("Hello World")
+  }
+}
+```
+
+## Programmatic navigation with NavigationStack
+
+```swift copy showLineNumbers
+public enum RouterDestination: Hashable {
+  case accountDetail(id: String)
+}
+
+@MainActor
+extension View {
+  func withAppRouter() -> some View {
+    navigationDestination(for: RouterDestination.self) { destination in
+      switch destination {
+      case let .accountDetail(id):
+        AccountDetailView(accountId: id)
+      }
+    }
+  }
+}
+
+@MainActor
+public class RouterPath: ObservableObject {
+  @Published public var path: [RouterDestination] = []
+
+  public init() {}
+
+  public func navigate(to: RouterDestination) {
+    path.append(to)
+  }
+}
+
+
+struct NotificationsTab: View {
+  @StateObject private var routerPath = RouterPath()
+
+  let lockedType: Models.Notification.NotificationType?
+
+  var body: some View {
+    NavigationStack(path: $routerPath.path) {
+        Button("Navigate to account") {
+          routerPath.navigate(to: .accountDetail(id: accountId))
+        }.withAppRouter()
+    }
+  }
+}
+```
