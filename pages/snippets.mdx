@@ -117,3 +117,156 @@ extension Array: RawRepresentable where Element: Codable {
   }
 }
 ```
+
+## Minimal SwiftUI + SwiftData app
+
+```swift copy showLineNumbers
+@Model
+final class Thread {
+  @Attribute(.unique) var id: UUID
+  var createdOn: Date
+  var content: String
+  var author: User
+  var isLiked: Bool = false
+
+  init(content: String, author: User) {
+    self.id = UUID()
+    self.createdOn = Date()
+    self.content = content
+    self.author = author
+  }
+}
+
+@Model
+final class User {
+  @Attribute(.unique) var id: UUID
+  var username: String
+
+  init(username: String) {
+    self.id = UUID()
+    self.username = username
+  }
+}
+
+@main
+struct ThreadsApp: App {
+
+  var body: some Scene {
+    WindowGroup {
+      TabView {
+        TimelineView()
+          .tabItem {
+            Label("Home", systemImage: "house")
+              .fontWeight(.medium)
+
+          }
+        ProfileView()
+          .tabItem {
+            Label("Profile", systemImage: "person")
+              .fontWeight(.medium)
+          }
+      }
+      .tint(.primary)
+    }
+    .modelContainer(for: Thread.self)
+  }
+}
+
+struct TimelineView: View {
+  @Environment(\.modelContext) private var modelContext
+  @Query(sort: \Thread.createdOn, order: .reverse) private var threads: [Thread]
+
+  @State private var isComposePresented: Bool = false
+
+  var body: some View {
+    NavigationStack {
+      List(threads) { thread in
+        ThreadRowView(thread: thread)
+      }
+      .listStyle(.plain)
+      .navigationTitle("threadsApp")
+      .navigationBarTitleDisplayMode(.inline)
+      .toolbar {
+        ToolbarItem(placement: .topBarTrailing) {
+          Button {
+            isComposePresented = true
+          } label: {
+            Image(systemName: "square.and.pencil")
+          }
+        }
+      }
+    }
+    .sheet(isPresented: $isComposePresented, content: {
+      ComposeView()
+    })
+    .onAppear {
+      populateFakeDate()
+    }
+  }
+
+  func populateFakeDate() {
+    if threads.isEmpty {
+      let user = User(username: "dimillian")
+      let thread1 = Thread(content: "Helo world", author: user)
+      modelContext.insert(thread1)
+    }
+  }
+}
+
+struct ComposeView: View {
+  enum FocusField: Hashable {
+    case threadContent
+  }
+
+  @Environment(\.dismiss) private var dismiss
+  @Environment(\.modelContext) private var modelContext
+
+  @State private var threadContent = ""
+  @FocusState private var focusedField: FocusField?
+
+  var body: some View {
+    NavigationStack {
+      Divider()
+      ZStack(alignment: .bottom) {
+        VStack {
+          HStack(alignment: .top, spacing: 6) {
+            AvatarView()
+            VStack(alignment: .leading, spacing: 4) {
+              TextField("Start a thread", text: $threadContent, axis: .vertical)
+                .focused($focusedField, equals: .threadContent)
+                .onAppear {
+                  focusedField = .threadContent
+                }
+            }
+          }
+          .padding()
+          Spacer()
+        }
+        HStack {
+          Spacer()
+          Button {
+            let user = User(username: "dimillian")
+            let thread1 = Thread(content: threadContent, author: user)
+            modelContext.insert(thread1)
+            dismiss()
+          } label: {
+            Text("Post")
+          }
+        }
+        .padding()
+      }
+      .navigationTitle("New thread")
+      .navigationBarTitleDisplayMode(.inline)
+      .toolbar {
+        ToolbarItem(placement: .topBarLeading) {
+          Button {
+            dismiss()
+          } label: {
+            Text("Cancel")
+          }
+        }
+      }
+    }
+  }
+}
+```
