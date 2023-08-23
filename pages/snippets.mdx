@@ -363,3 +363,33 @@ extension Array: RawRepresentable where Element: Codable {
   </Tabs>
   </Tab>
 </Tabs>
+
+## Creating and using custom Environment values in SwiftUI
+
+```swift copy showLineNumbers
+public extension EnvironmentValues {
+  var isSecondaryColumn: Bool {
+    get { self[SecondaryColumnKey.self] }
+    set { self[SecondaryColumnKey.self] = newValue }
+  }
+}
+
+public struct NotificationsTab: View {
+  public var body: some View {
+     NotificationsListView()
+      .environment(\.isSecondaryColumn, true)
+  }
+}
+
+public struct NotificationsListView: View {
+  @Environment(\.isSecondaryColumn) private var isSecondaryColumn: Bool
+
+  public var body: some View {
+    if isSecondaryColumn {
+      Text("I'm secondary column")
+    } else {
+      Text("I'm not secondary column")
+    }
+  }
+}
+```
