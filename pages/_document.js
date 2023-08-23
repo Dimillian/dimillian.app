@@ -2,8 +2,8 @@ import { Html, Head, Main, NextScript } from 'next/document'
 
 export default function Document() {
   const meta = {
-    title: 'Thomas Ricouard (Dimillian)',
-    description: 'My portfolio',
+    title: 'Hello, I\'m thomas 👋',
+    description: 'Thomas Ricouard (Dimillian), iOS developer, open source lover, and more.',
     image: 'https://www.dimillian.app/images/snapshot.png'
   }
 
