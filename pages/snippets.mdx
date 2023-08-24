@@ -84,12 +84,12 @@ public struct AppAccountsSelectorView: View {
     } label: {
       Text("Present sheet")
     }
-    .sheet(isPresented: $isPresented, content: {
+    .sheet(isPresented: $isPresented) {
       accountsView
       .presentationDetents([.height(preferredHeight), .large])
       .presentationBackground(.thinMaterial)
       .presentationCornerRadius(16)
-    })
+    }
   }
 }
 ```
@@ -209,9 +209,9 @@ extension Array: RawRepresentable where Element: Codable {
           }
         }
       }
-      .sheet(isPresented: $isComposePresented, content: {
+      .sheet(isPresented: $isComposePresented) {
         ComposeView()
-      })
+      }
       .onAppear {
         populateFakeDate()
       }
