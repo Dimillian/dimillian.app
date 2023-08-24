@@ -1,0 +1,46 @@
+## Programmatic navigation with NavigationStack
+
+```swift copy showLineNumbers
+public enum RouterDestination: Hashable {
+  case accountDetail(id: String)
+}
+
+@MainActor
+extension View {
+  func withAppRouter() -> some View {
+    navigationDestination(for: RouterDestination.self) { destination in
+      switch destination {
+      case let .accountDetail(id):
+        AccountDetailView(accountId: id)
+      }
+    }
+  }
+}
+
+@MainActor
+public class RouterPath: ObservableObject {
+  @Published public var path: [RouterDestination] = []
+
+  public func navigate(to: RouterDestination) {
+    path.append(to)
+  }
+}
+
+
+struct NotificationsTab: View {
+  @StateObject private var routerPath = RouterPath()
+
+  var body: some View {
+    NavigationStack(path: $routerPath.path) {
+        Button("Navigate to account") {
+          routerPath.navigate(to: .accountDetail(id: accountId))
+        }
+        .withAppRouter()
+    }
+  }
+}
+```
+
+[X Thread](https://twitter.com/Dimillian/status/1682037532895354880)
+
+---

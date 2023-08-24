@@ -1,0 +1,18 @@
+## Access AppDelegate from SwiftUI App
+
+```swift copy showLineNumbers
+@main
+struct IceCubesApp: App {
+  @UIApplicationDelegateAdaptor private var appDelegate: AppDelegatern
+}
+
+class AppDelegate: NSObject, UIApplicationDelegate {
+  func application(_: UIApplication,
+                   didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool
+  {
+    print("Application did finish lauching")
+  }
+}
+```
+
+---

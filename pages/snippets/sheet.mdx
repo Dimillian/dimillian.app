@@ -1,0 +1,23 @@
+## Sheet with visual effect / blurred background and corner radius
+
+```swift copy showLineNumbers
+public struct AppAccountsSelectorView: View {
+  @State private var isPresented: Bool = false
+
+  public var body: some View {
+    Button {
+      isPresented.toggle()
+    } label: {
+      Text("Present sheet")
+    }
+    .sheet(isPresented: $isPresented) {
+      accountsView
+      .presentationDetents([.height(preferredHeight), .large])
+      .presentationBackground(.thinMaterial)
+      .presentationCornerRadius(16)
+    }
+  }
+}
+```
+
+---
