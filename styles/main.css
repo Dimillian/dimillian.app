@@ -9,11 +9,11 @@ a {
 .appicons {
   display: flex !important;
   justify-content: space-between !important;
+  flex-flow: row wrap;
 }
 
 .appicons img {
   display: inline !important;
   width: 100px;
-  height: 100px;
   border-radius: 21px !important;
 }
