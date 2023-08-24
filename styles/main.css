@@ -5,3 +5,15 @@ a {
 .nx-cursor-default {
   font-weight: bold !important;
 }
+
+.appicons {
+  display: flex !important;
+  justify-content: space-between !important;
+}
+
+.appicons img {
+  display: inline !important;
+  width: 100px;
+  height: 100px;
+  border-radius: 21px !important;
+}
