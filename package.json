@@ -9,9 +9,9 @@
   "dependencies": {
     "@vercel/analytics": "^1.0.2",
     "gray-matter": "^4.0.2",
-    "next": "13.4.19",
-    "nextra": "^2.11.1",
-    "nextra-theme-blog": "^2.11.1",
+    "next": "14.0.3",
+    "nextra": "^2.13.2",
+    "nextra-theme-blog": "^2.13.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-embed": "^3.7.0"
