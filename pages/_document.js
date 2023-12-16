@@ -4,7 +4,7 @@ export default function Document() {
   const meta = {
     title: 'Hello, I\'m thomas 👋',
     description: 'Thomas Ricouard (Dimillian), iOS developer, open source lover, and more.',
-    image: 'https://www.dimillian.app/images/snapshot.png'
+    image: 'https://www.dimillian.app/images/banner.png'
   }
 
   return (
