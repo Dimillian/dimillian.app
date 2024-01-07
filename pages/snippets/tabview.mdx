@@ -2,7 +2,7 @@
 
 ```swift copy showLineNumbers
 struct RootView: View {
-    enum Tab: Int {
+    enum Tab: Int, CaseIterable {
         case home, notifications, search, profile
     }
 
@@ -21,7 +21,7 @@ struct RootView: View {
 
         selectedTab = newTab
     })) {
-        ForEach(availableTabs) { tab in
+        ForEach(Tab.allCases, id: \.self) { tab in
             tab.makeContentView()
             .tabItem {
                 tab.label
