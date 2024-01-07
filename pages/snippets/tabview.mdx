@@ -1,26 +1,33 @@
 ## TabView with custom binding for side effects on tab selection
 
 ```swift copy showLineNumbers
-
-TabView(selection: .init(get: {
-    selectedTab
-}, set: { newTab in
-    if newTab == .post {
-        appRouterPath.presentedSheet = .newStatusEditor(visibility: userPreferences.postVisibility)
-        return
+struct RootView: View {
+    enum Tab: Int {
+        case home, notifications, search, profile
     }
 
-    HapticManager.shared.fireHaptic(.tabSelection)
-    SoundEffectManager.shared.playSound(.tabSelection)
+    @State private var selectedTab: Tab = .home
 
-    selectedTab = newTab
-})) {
-    ForEach(availableTabs) { tab in
-        tab.makeContentView()
-        .tabItem {
-             tab.label
+    TabView(selection: .init(get: {
+        selectedTab
+    }, set: { newTab in
+        if newTab == .post {
+            appRouterPath.presentedSheet = .newStatusEditor(visibility: userPreferences.postVisibility)
+            return
         }
-        .tag(tab)
+
+        HapticManager.shared.fireHaptic(.tabSelection)
+        SoundEffectManager.shared.playSound(.tabSelection)
+
+        selectedTab = newTab
+    })) {
+        ForEach(availableTabs) { tab in
+            tab.makeContentView()
+            .tabItem {
+                tab.label
+            }
+            .tag(tab)
+        }
     }
 }
 ```
