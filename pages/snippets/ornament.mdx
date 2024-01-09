@@ -1,0 +1,19 @@
+## VisionOS: AccessoryView or Ornament in SwiftUI, depending on the target OS.
+
+```swift copy showLineNumbers
+public struct EditorView: View {
+  public var body: some View {
+    EditTextView(text: .constant("Hello, World!"))
+    #if os(visionOS)
+    .ornament(attachmentAnchor: .scene(.bottom)) {
+        Button("Done") { }
+    #else
+    .safeAreaInset(edge: .bottom) {
+        Button("Done") { }
+    }
+    #endif
+  }
+}
+```
+
+---
