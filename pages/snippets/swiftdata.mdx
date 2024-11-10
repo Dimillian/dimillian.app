@@ -1,9 +1,9 @@
-import { Tabs, Tab } from 'nextra/components'
+import { Tabs } from 'nextra/components'
 
 ## Minimal SwiftUI + SwiftData app
 
 <Tabs items={['Models', 'App', 'Views']}>
-  <Tab>
+  <Tabs.Tab>
   ```swift copy showLineNumbers
   @Model
   final class Thread {
@@ -33,8 +33,8 @@ import { Tabs, Tab } from 'nextra/components'
   }
 
   ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
    ```swift copy showLineNumbers
   @main
   struct ThreadsApp: App {
@@ -60,10 +60,10 @@ import { Tabs, Tab } from 'nextra/components'
     }
   }
   ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
   <Tabs items={['TimelineView', 'ProfileView', 'ComposeView']}>
-  <Tab>
+  <Tabs.Tab>
   ```swift copy showLineNumbers
   struct TimelineView: View {
     @Environment(\.modelContext) private var modelContext
@@ -107,8 +107,8 @@ import { Tabs, Tab } from 'nextra/components'
   }
 
   ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
    ```swift copy showLineNumbers
   struct ProfileView: View {
     enum Tab: Int, CaseIterable {
@@ -179,8 +179,8 @@ import { Tabs, Tab } from 'nextra/components'
     }
   }
   ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
   ```swift copy showLineNumbers
   struct ComposeView: View {
     enum FocusField: Hashable {
@@ -239,9 +239,9 @@ import { Tabs, Tab } from 'nextra/components'
     }
   }
   ```
-  </Tab>
+  </Tabs.Tab>
   </Tabs>
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 ---
